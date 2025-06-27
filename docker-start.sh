@@ -26,8 +26,8 @@ build_containers() {
 start_containers() {
     echo "🚀 Iniciando contenedores..."
     docker-compose up -d
-    echo "✅ Aplicación disponible en: http://localhost:8080"
-    echo "📊 Swagger UI: http://localhost:8080/swagger"
+    echo "✅ Aplicación disponible en: http://localhost:10000"
+    echo "📊 Swagger UI: http://localhost:10000/swagger"
 }
 
 # Función para detener

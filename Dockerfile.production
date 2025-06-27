@@ -1,0 +1,32 @@
+# Dockerfile optimizado para servicios de despliegue (Puerto 10000)
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy project files
+COPY core.net_service/*.csproj ./core.net_service/
+WORKDIR /app/core.net_service
+RUN dotnet restore
+
+# Copy source code
+WORKDIR /app
+COPY . .
+
+# Build and publish
+WORKDIR /app/core.net_service
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app/publish .
+
+# Configure for deployment service (port 10000)
+EXPOSE 10000
+ENV ASPNETCORE_URLS=http://+:10000
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:10000/health || exit 1
+
+ENTRYPOINT ["dotnet", "core.net_service.dll"]

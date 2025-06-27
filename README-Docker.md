@@ -43,8 +43,8 @@ docker-compose down
 
 Una vez que los contenedores estén ejecutándose:
 
-- **API**: http://localhost:8080
-- **Swagger UI**: http://localhost:8080/swagger
+- **API**: http://localhost:10000
+- **Swagger UI**: http://localhost:10000/swagger
 - **Base de Datos PostgreSQL**: localhost:5432
 
 ## 🗄️ Base de Datos
@@ -80,7 +80,7 @@ Edita el `docker-compose.yml`:
 
 ```yaml
 ports:
-  - "TU_PUERTO:8080"  # Cambia TU_PUERTO por el puerto deseado
+  - "TU_PUERTO:10000"  # Cambia TU_PUERTO por el puerto deseado
 ```
 
 ### Variables de Entorno
@@ -88,7 +88,7 @@ ports:
 Puedes crear un archivo `.env` en la raíz del proyecto:
 
 ```env
-API_PORT=8080
+API_PORT=10000
 POSTGRES_PASSWORD=tu_password
 ASPNETCORE_ENVIRONMENT=Development
 ```

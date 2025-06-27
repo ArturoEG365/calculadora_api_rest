@@ -7,17 +7,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "1000:8080"
+      - "10000:10000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_URLS=http://+:10000
     volumes:
       - ./core.net_service/appsettings.json:/app/appsettings.json:ro
     depends_on:
       - postgres
     networks:
       - app-network
-    entrypoint: [ "./wait-for-it.sh", "postgres:5432", "--", "dotnet", "core.net_service.dll" ]
 
   postgres:
     image: postgres:15

@@ -27,6 +27,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
+// Health check endpoint for deployment services
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+
 app.MapControllers();
 
 app.Run();

@@ -27,10 +27,10 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Expose the port
-EXPOSE 8080
+EXPOSE 10000
 
 # Set environment variables
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://+:10000
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Run the application
