@@ -1,0 +1,16 @@
+# Archivos y directorios a ignorar en Docker
+**/bin
+**/obj
+**/.vs
+**/.vscode
+**/node_modules
+**/npm-debug.log
+**/Dockerfile*
+**/docker-compose*
+**/.dockerignore
+**/.git
+**/.gitignore
+**/*.md
+**/charts
+**/skaffold.yaml
+**/.env

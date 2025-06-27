@@ -1,0 +1,6 @@
+@core.net_service_HostAddress = http://localhost:5217
+
+GET {{core.net_service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
