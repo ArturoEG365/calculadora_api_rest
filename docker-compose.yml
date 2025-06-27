@@ -1,4 +1,3 @@
-# Docker Compose para el proyecto .NET
 version: '3.8'
 
 services:
@@ -8,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "1000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
@@ -18,15 +17,15 @@ services:
       - postgres
     networks:
       - app-network
+    entrypoint: [ "./wait-for-it.sh", "postgres:5432", "--", "dotnet", "core.net_service.dll" ]
 
-  # Servicio de PostgreSQL (opcional, si quieres usar una BD local)
   postgres:
     image: postgres:15
     container_name: postgres_db
     environment:
       POSTGRES_DB: operaciones_aritmeticas
       POSTGRES_USER: arturo_eg
-      POSTGRES_PASSWORD: local_password
+      POSTGRES_PASSWORD: Wg95cHgE0evEfassMjwg8SQPiSlMPXR1
     ports:
       - "5432:5432"
     volumes:
@@ -35,8 +34,7 @@ services:
       - app-network
 
 volumes:
-  postgres_data:
-
+  postgres_data: {}
 
 networks:
   app-network:
