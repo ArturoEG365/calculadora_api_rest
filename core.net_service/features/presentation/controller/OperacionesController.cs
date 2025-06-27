@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.DTO;
 using Domain.Models;
 using System.Threading.Tasks;
+using System;
 
 namespace API.Controllers
 {
@@ -18,11 +19,25 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<Operacion> CreateOperacion([FromBody] OperacionInputDto operacionInput)
+        public async Task<IActionResult> CreateOperacion([FromBody] OperacionInputDto operacionInput)
         {
-            var operacion = await _createOperacionUseCase.ExecuteAsync(operacionInput);
-            return operacion;
+            try
+            {
+                var operacion = await _createOperacionUseCase.ExecuteAsync(operacionInput);
+                return CreatedAtAction(nameof(CreateOperacion), new { id = operacion.Id }, operacion);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred.", details = ex.Message });
+            }
         }
-
     }
 }

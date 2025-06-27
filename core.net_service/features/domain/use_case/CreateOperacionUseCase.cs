@@ -1,7 +1,6 @@
 using Data.Repositories;
 using Domain.Models;
 using Presentation.DTO;
-using System.Threading.Tasks;
 
 namespace Domain.UseCase
 {
@@ -16,6 +15,9 @@ namespace Domain.UseCase
 
         public async Task<Operacion> ExecuteAsync(OperacionInputDto operacionInput)
         {
+            if (operacionInput == null)
+                throw new ArgumentException("Invalid operation input.");
+
             var operacion = new Operacion
             {
                 Tipo = operacionInput.Tipo,
@@ -37,7 +39,8 @@ namespace Domain.UseCase
                 "-" => operacionInput.Numero1 - operacionInput.Numero2,
                 "*" => operacionInput.Numero1 * operacionInput.Numero2,
                 "/" when operacionInput.Numero2 != 0 => operacionInput.Numero1 / operacionInput.Numero2,
-                _ => 0,
+                "/" => throw new InvalidOperationException("Cannot divide by zero."),  // Lanzamos un error si se intenta dividir por cero
+                _ => throw new InvalidOperationException("Invalid operation type.")  // Error si el tipo no es reconocido
             };
         }
     }

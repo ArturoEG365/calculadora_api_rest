@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Data.DTO;
 using Data.Repositories;
+using Domain.UseCase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ builder.Services.AddDbContext<OperacionesEntity>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IOperacionRepository, OperacionRepository>();
+
+builder.Services.AddScoped<CreateOperacionUseCase>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
