@@ -1,0 +1,4 @@
+﻿namespace WSArtemisaApi.Models
+{
+   
+}
